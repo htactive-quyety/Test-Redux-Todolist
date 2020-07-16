@@ -1,0 +1,38 @@
+.ant-tabs>.ant-tabs-nav .ant-tabs-nav-list,
+.ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-list {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 50px;
+}
+
+.ant-tabs-right>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane,
+.ant-tabs-right>div>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane {
+    margin-top: 60px;
+}
+
+.card-container>.ant-tabs-card .ant-tabs-content>.ant-tabs-tabpane {
+    background: #fff;
+    padding: 16px;
+}
+
+.card-container>.ant-tabs-card>.ant-tabs-nav::before {
+    display: none;
+}
+
+.card-container>.ant-tabs-card .ant-tabs-tab,
+[data-theme='compact'] .card-container>.ant-tabs-card .ant-tabs-tab {
+    border-color: transparent;
+    background: transparent;
+}
+
+.card-container>.ant-tabs-card .ant-tabs-tab-active,
+[data-theme='compact'] .card-container>.ant-tabs-card .ant-tabs-tab-active {
+    border-color: #fff;
+    background: #fff;
+}
+
+#components-tabs-demo-card-top .code-box-demo {
+    background: #f5f5f5;
+    overflow: hidden;
+    padding: 24px;
+}

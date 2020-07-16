@@ -24,12 +24,10 @@ const DELETE_TODO = (id) => {
         }
     })
 }
-const CHECKBOX_TODO = (id) => {
+const CHECKBOX_TODO = params => {
     return ({
         type: 'CHECKBOX_TODO',
-        payload: {
-            id,
-        }
+        payload: params
     })
 
 }
