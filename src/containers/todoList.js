@@ -15,7 +15,7 @@ class TodoList extends Component {
         edit: false,
         editId: 0,
         complete: false,
-        // count: 0,
+
     }
 
     editTodoList = (id) => {
@@ -39,18 +39,13 @@ class TodoList extends Component {
     }
 
     handleCheck = (id) => {
-        this.props.updateCheck({ id, complete: !this.state.complete });
-        this.setState((state) => ({
-            complete: !state.complete,
-        }));
+        const { updateCheck, dispatch } = this.props;
+        dispatch(CHECKBOX_TODO({ id, complete: !this.state.complete }))
     }
 
-
-
     render() {
+        const { data } = this.props
         const { editId } = this.state
-        const { todos, showCompleted, showUncompleted  } = this.props
-        const data = showCompleted ? todos.filter(todo => todo.complete) : (showUncompleted ? todos.filter(todo => !todo.complete) : todos)
         if (!this.state.edit) {
             return (
                 <div >
@@ -58,10 +53,10 @@ class TodoList extends Component {
                         <div key={id} id='todolist'>
                             <p></p>
                             <Row>
-                                <Col span={5}>
+                                <Col span={6}>
                                     <Row>
                                         <Col span={5}> <Input type='checkbox' onClick={() => this.handleCheck(id)} defaultChecked={todo.complete}></Input></Col>
-                                        <Col span={19}><Moment format="DD/MM/YYYY">{this.props.dateToFormat}</Moment></Col>
+                                        <Col span={19}><Moment format="YYYY/MM/DD">{this.props.dateToFormat}</Moment></Col>
                                     </Row>
 
                                 </Col>
@@ -92,7 +87,7 @@ class TodoList extends Component {
                                 <Col span={6}>
                                     <Row>
                                         <Col span={5}> <Input type='checkbox' onClick={() => this.handleCheck(id)} defaultChecked={todo.complete}></Input></Col>
-                                        <Col span={19}><Moment format="DD/MM/YYYY">{this.props.dateToFormat}</Moment></Col>
+                                        <Col span={19}><Moment format="YYYY/MM/DD">{this.props.dateToFormat}</Moment></Col>
                                     </Row>
                                 </Col>
                                 <Col span={16}></Col>
@@ -148,19 +143,17 @@ class TodoList extends Component {
     }
 }
 
-
-
-const mapStateProps = (state) => {
-    return {
-        todos: state.todos
-    }
-}
+// const mapStateProps = (state) => {
+//     return {
+//         todos: state.todos
+//     }
+// }
 
 const mapDispatchToProps = (dispatch) => ({
     updateUser: (id, text) => dispatch(UPDATE_TODO(id, text)),
-    updateCheck: (id, complete) => dispatch(CHECKBOX_TODO(id, complete)),
+    updateCheck: (id, complete) => dispatch(CHECKBOX_TODO({ id, complete })),
     deleteUser: (id) => dispatch(DELETE_TODO(id))
 })
 
 
-export default connect(mapStateProps, mapDispatchToProps)(TodoList);
+export default connect(mapDispatchToProps)(TodoList);
