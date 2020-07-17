@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Row, Col, Tabs, Menu } from 'antd'
-import { BrowserRouter as Router, Switch, Link } from 'react-router-dom'
+import { Row, Col, Tabs, Menu } from 'antd'
 import Todolist from './todoList'
 import Addtodolist from './addTodo'
 import {MailOutlined} from '@ant-design/icons';
@@ -12,6 +11,7 @@ export default class menu extends Component {
     render() {
         return (
             <Row>
+                <div className='menu'>
                 <Col span={6}>
                     <Menu onClick={this.handleClick}
                         style={{ width: 256 }}
@@ -56,6 +56,7 @@ export default class menu extends Component {
                             }></SubMenu>
                     </Menu>
                 </Col>
+                </div>
                 <Col span={18}>
                     <div className="card-container">
                         <Tabs type="card" tabPosition='right' >

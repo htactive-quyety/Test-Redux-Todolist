@@ -6,7 +6,8 @@ const todos = (state = [], action) => {
                 ...state,
                 {
                     text: action.payload.text,
-                    complete: false
+                    complete: false,
+                  
                 }
             ]
         case 'UPDATE_TODO':
@@ -18,15 +19,19 @@ const todos = (state = [], action) => {
             })
         case 'DELETE_TODO':
             return state.filter((todo, id) => payload.id !== id);
-
         case 'CHECKBOX_TODO':
+            // return state.map((item, id) => {
+            //     if (payload.id === id) {
+            //         return { ...item, complete: true }
+            //     }
+            //     return item
+            // })
             const { id, complete } = payload
             let todo = state[id]
-            console.log(todo);
             // Cập nhật status complete
             todo.complete = complete 
             // Cập nhật todo vào trong array 
-            state.splice(payload.id, 1, todo) 
+            state.splice(payload.id, todo) 
             return state
         case 'TOGGLE_TODO':
             return state.map(todo =>
