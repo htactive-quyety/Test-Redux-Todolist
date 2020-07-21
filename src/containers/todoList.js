@@ -39,8 +39,9 @@ class TodoList extends Component {
     }
 
     handleCheck = (id) => {
-        const { updateCheck, dispatch } = this.props;
-        dispatch(CHECKBOX_TODO({ id, complete: !this.state.complete }))
+        this.props.updateCheck({id, complete: !this.state.complete})
+        // const { updateCheck, dispatch } = this.props;
+        // dispatch(CHECKBOX_TODO({ id, complete: !this.state.complete }))
     }
 
     render() {
@@ -62,7 +63,7 @@ class TodoList extends Component {
                                 </Col>
                                 <Col span={16}></Col>
                                 <Col span={2}>
-                                    <button onClick={() => { this.editTodoList(id) }} > <EditOutlined /></button>
+                                    <button onClick={() =>  this.editTodoList(id) } > <EditOutlined /></button>
                                     <button onClick={() => this.deleteTodoList(id)}><CloseOutlined /></button>
                                 </Col>
                             </Row>
@@ -143,17 +144,17 @@ class TodoList extends Component {
     }
 }
 
-// const mapStateProps = (state) => {
-//     return {
-//         todos: state.todos
-//     }
-// }
+const mapStateProps = (state) => {
+    return {
+        todos: state.todos
+    }
+}
 
 const mapDispatchToProps = (dispatch) => ({
     updateUser: (id, text) => dispatch(UPDATE_TODO(id, text)),
-    updateCheck: (id, complete) => dispatch(CHECKBOX_TODO({ id, complete })),
+    updateCheck: (id, complete) => dispatch(CHECKBOX_TODO(id, complete )),
     deleteUser: (id) => dispatch(DELETE_TODO(id))
 })
 
 
-export default connect(mapDispatchToProps)(TodoList);
+export default connect(mapStateProps,mapDispatchToProps)(TodoList);

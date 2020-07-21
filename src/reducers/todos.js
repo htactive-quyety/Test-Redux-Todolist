@@ -17,7 +17,8 @@ const todos = (state = [], action) => {
                 return item
             })
         case 'DELETE_TODO':
-            return state.filter((todo, id) => payload.id !== id)
+            console.log(action,'delete');
+            return state.filter((todo, id) => action.payload.id !== id)
         case 'CHECKBOX_TODO':
             const { id, complete } = payload
             return state.map((item, index) => {

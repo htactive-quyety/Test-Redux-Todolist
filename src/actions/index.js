@@ -25,7 +25,6 @@ const DELETE_TODO = (id) => {
     })
 }
 const CHECKBOX_TODO = (params) => {
-    console.log(params, '????');
     return ({
         type: 'CHECKBOX_TODO',
         payload: params
