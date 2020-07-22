@@ -14,19 +14,26 @@ class TodoList extends Component {
         text: '',
         edit: false,
         editId: 0,
-        complete: false,
 
     }
 
-    editTodoList = (id) => {
+    editTodoList = (id, value) => {
+        console.log(value)
         this.setState((state) => ({
             edit: !state.edit,
             editId: id,
+            text: value
         }));
 
     }
 
     updateTodoList = (id) => {
+        if (this.state.text === '') {
+            this.setState((state) => ({
+                edit: !state.edit,
+            }));
+            return;
+        }
         this.props.updateUser(id, this.state.text);
         this.setState((state) => ({
             edit: !state.edit,
@@ -39,9 +46,11 @@ class TodoList extends Component {
     }
 
     handleCheck = (id) => {
-        this.props.updateCheck({id, complete: !this.state.complete})
-        // const { updateCheck, dispatch } = this.props;
-        // dispatch(CHECKBOX_TODO({ id, complete: !this.state.complete }))
+        this.props.updateCheck({id})
+    }
+
+    handleChangeValue = (e) => {
+        this.setState({ text: e.target.value })
     }
 
     render() {
@@ -56,15 +65,15 @@ class TodoList extends Component {
                             <Row>
                                 <Col span={6}>
                                     <Row>
-                                        <Col span={5}> <Input type='checkbox' onClick={() => this.handleCheck(id)} defaultChecked={todo.complete}></Input></Col>
+                                        <Col span={5}> <Input type='checkbox' onClick={() => this.handleCheck(todo.id)} checked={todo.complete}></Input></Col>
                                         <Col span={19}><Moment format="YYYY/MM/DD">{this.props.dateToFormat}</Moment></Col>
                                     </Row>
 
                                 </Col>
                                 <Col span={16}></Col>
                                 <Col span={2}>
-                                    <button onClick={() =>  this.editTodoList(id) } > <EditOutlined /></button>
-                                    <button onClick={() => this.deleteTodoList(id)}><CloseOutlined /></button>
+                                    <button onClick={() =>  this.editTodoList(todo.id, todo.text) } > <EditOutlined /></button>
+                                    <button onClick={() => this.deleteTodoList(todo.id)}><CloseOutlined /></button>
                                 </Col>
                             </Row>
                             <Row>
@@ -82,19 +91,19 @@ class TodoList extends Component {
             return (
                 <div >
                     {data.map((todo, id) => (
-                        (editId === id) ? <div id='todolist' key={id}>
+                        (editId === todo.id) ? <div id='todolist' key={id}>
                             <p></p>
                             <Row>
                                 <Col span={6}>
                                     <Row>
-                                        <Col span={5}> <Input type='checkbox' onClick={() => this.handleCheck(id)} defaultChecked={todo.complete}></Input></Col>
+                                        <Col span={5}> <Input type='checkbox' onClick={() => this.handleCheck(todo.id)} defaultChecked={todo.complete}></Input></Col>
                                         <Col span={19}><Moment format="YYYY/MM/DD">{this.props.dateToFormat}</Moment></Col>
                                     </Row>
                                 </Col>
                                 <Col span={16}></Col>
                                 <Col span={2}>
-                                    <button onClick={() => this.updateTodoList(id)} > <CheckOutlined /></button>
-                                    <button onClick={() => this.deleteTodoList(id)}><CloseOutlined /></button>
+                                    <button onClick={() => this.updateTodoList(todo.id)} > <CheckOutlined /></button>
+                                    <button onClick={() => this.deleteTodoList(todo.id)}><CloseOutlined /></button>
                                 </Col>
                             </Row>
                             <Row>
@@ -105,8 +114,8 @@ class TodoList extends Component {
                                         <TextArea
                                             maxLength={500} autosize={{ minRows: 4, maxRows: 4 }}
                                             className='editTextAread'
-                                            onChange={event => this.setState({ text: event.target.value })}
-                                            value={this.state.text || todo.text}>
+                                            onChange={this.handleChangeValue}
+                                            value={this.state.text}>
                                         </TextArea>
                                     </div>
                                 </Col>
@@ -118,14 +127,14 @@ class TodoList extends Component {
                                 <Row>
                                     <Col span={6}>
                                         <Row>
-                                            <Col span={5}> <Input type='checkbox' onClick={() => this.handleCheck(id)} defaultChecked={todo.complete}></Input></Col>
+                                            <Col span={5}> <Input type='checkbox' onClick={() => this.handleCheck(todo.id)} defaultChecked={todo.complete}></Input></Col>
                                             <Col span={19}><Moment format="DD/MM/YYYY">{this.props.dateToFormat}</Moment></Col>
                                         </Row>
                                     </Col>
                                     <Col span={16}></Col>
                                     <Col span={2}>
-                                        <button onClick={() => this.editTodoList(id)} > <EditOutlined /></button>
-                                        <button onClick={() => this.deleteTodoList(id)}><CloseOutlined /></button>
+                                        <button onClick={() => this.editTodoList(todo.id, todo.text)} > <EditOutlined /></button>
+                                        <button onClick={() => this.deleteTodoList(todo.id)}><CloseOutlined /></button>
                                     </Col>
                                 </Row>
                                 <Row>
@@ -152,7 +161,7 @@ const mapStateProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     updateUser: (id, text) => dispatch(UPDATE_TODO(id, text)),
-    updateCheck: (id, complete) => dispatch(CHECKBOX_TODO(id, complete )),
+    updateCheck: (id) => dispatch(CHECKBOX_TODO(id )),
     deleteUser: (id) => dispatch(DELETE_TODO(id))
 })
 

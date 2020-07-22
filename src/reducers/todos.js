@@ -5,25 +5,25 @@ const todos = (state = [], action) => {
             return [
                 ...state,
                 {
+                    id: action.payload.id,
                     text: action.payload.text,
                     complete: false,
                 }
             ]
         case 'UPDATE_TODO':
             return state.map((item, id) => {
-                if (payload.id === id) {
+                if (payload.id === item.id) {
                     return { ...item, text: payload.text }
                 }
                 return item
             })
         case 'DELETE_TODO':
-            console.log(action,'delete');
-            return state.filter((todo, id) => action.payload.id !== id)
+            return state.filter((todo, id) => action.payload.id !== todo.id)
         case 'CHECKBOX_TODO':
-            const { id, complete } = payload
+            const { id} = payload
             return state.map((item, index) => {
-                if (index === id) {
-                    return {...item, complete}
+                if (item.id === id) {
+                    return {...item, complete: !item.complete}
                 }
                 return item
             })

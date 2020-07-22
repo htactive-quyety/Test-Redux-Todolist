@@ -1,9 +1,7 @@
 const ADD_TODO = (text) => {
     return ({
         type: 'ADD_TODO',
-        payload: {
-            text
-        }
+        payload: text
     })
 }
 const UPDATE_TODO = (id, text) => {

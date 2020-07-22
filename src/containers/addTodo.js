@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Input, Form, Row, Col } from 'antd'
 import { ADD_TODO } from '../actions/index'
 import { connect } from 'react-redux'
-
+import { v1 as uuid} from 'uuid';
 class AddTodo extends Component {
 
     state = {
@@ -10,9 +10,14 @@ class AddTodo extends Component {
     }
 
     onSubmit = (event) => {
-        if (event.key === 'Enter') {
-            this.props.addTodo(this.state.text)
+        if (this.state.text === '' || this.state.text.trim() === '') {
+            alert('Please enter value to add new todo');
             this.setState({ text: '' })
+        }else{
+            if (event.key === 'Enter') {
+                this.props.addTodo({ id: uuid(), text: this.state.text.trim() });
+                this.setState({ text: '' });
+            }
         }
     }
     render() {
