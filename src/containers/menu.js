@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Row, Col, Tabs, Menu } from 'antd'
 import Todolist from './todoList'
-import Addtodolist from './addTodo'
 import { MailOutlined } from '@ant-design/icons';
 import '../asset/menu.css'
 import { connect } from 'react-redux';
@@ -59,19 +58,22 @@ class menu extends Component {
                         </Menu>
                     </Col>
                 </div>
-                <Col span={18}>
+                <Col span={19}>
                     <div className="card-container">
-                        <Tabs type="card" tabPosition='right' >
+                        <Tabs type="card" className='tabmenu'  >
                             <TabPane tab="All" key="1" >
                                 <Todolist data={todos} />
                             </TabPane>
-                            <TabPane tab="Uncompleted" key="2">
-                                <Todolist data={todos.filter(todo => !todo.complete)} />
+                            <TabPane tab='|' ></TabPane>
+                            <TabPane tab="Uncompleted" key="2" >
+                                <Todolist data={todos.filter(todo => !todo.complete)} className='listitem'/>
                             </TabPane>
-                            <TabPane tab="Completed" key="3">
-                                <Todolist data={todos.filter(todo => todo.complete)} />
+                            <TabPane tab='|' ></TabPane>
+                            <TabPane tab="Completed" key="3" >
+                                <Todolist  data={todos.filter(todo => todo.complete)} className='listitem' />
                             </TabPane>
                         </Tabs>
+                        
                     </div>
                 </Col>
             </Row>

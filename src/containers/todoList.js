@@ -4,7 +4,6 @@ import { Row, Col, Input } from 'antd'
 import { EditOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons'
 import TextArea from 'antd/lib/input/TextArea';
 import { UPDATE_TODO, DELETE_TODO, CHECKBOX_TODO } from '../actions/index'
-import todos from '../reducers/todos';
 import '../asset/todoList.css'
 import Moment from 'react-moment'
 
@@ -46,7 +45,7 @@ class TodoList extends Component {
     }
 
     handleCheck = (id) => {
-        this.props.updateCheck({id})
+        this.props.updateCheck({ id })
     }
 
     handleChangeValue = (e) => {
@@ -72,7 +71,7 @@ class TodoList extends Component {
                                 </Col>
                                 <Col span={16}></Col>
                                 <Col span={2}>
-                                    <button onClick={() =>  this.editTodoList(todo.id, todo.text) } > <EditOutlined /></button>
+                                    <button onClick={() => this.editTodoList(todo.id, todo.text)} > <EditOutlined /></button>
                                     <button onClick={() => this.deleteTodoList(todo.id)}><CloseOutlined /></button>
                                 </Col>
                             </Row>
@@ -161,9 +160,9 @@ const mapStateProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     updateUser: (id, text) => dispatch(UPDATE_TODO(id, text)),
-    updateCheck: (id) => dispatch(CHECKBOX_TODO(id )),
+    updateCheck: (id) => dispatch(CHECKBOX_TODO(id)),
     deleteUser: (id) => dispatch(DELETE_TODO(id))
 })
 
 
-export default connect(mapStateProps,mapDispatchToProps)(TodoList);
+export default connect(mapStateProps, mapDispatchToProps)(TodoList);

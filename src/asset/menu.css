@@ -1,8 +1,9 @@
-.ant-tabs>.ant-tabs-nav .ant-tabs-nav-list,
-.ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-list {
+.ant-tabs>.ant-tabs-nav .ant-tabs-nav-wrap,
+.ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-wrap {
     display: flex;
-    flex-direction: row;
-    padding-bottom: 50px;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    padding-bottom: 10px;
 }
 
 .ant-tabs-right>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane,

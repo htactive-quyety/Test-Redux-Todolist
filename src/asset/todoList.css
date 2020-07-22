@@ -1,7 +1,7 @@
 #todolist {
     box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    border-left: 1px solid #4da6ff;
+    border-left: 3px solid #4da6ff;
     padding-bottom: 20px;
     margin-bottom: 23px;
     background: white;
